@@ -21,6 +21,7 @@ content = MySQLdb.connect(
     passwd = '1',
     db = 'stu_info',
     charset = 'utf8')
+
 cur = content.cursor()
 c_db = "create database stu_info"
 c_table = "CREATE TABLE user_info (id int(8) NOT NULL AUTO_INCREMENT,name char(80) NOT NULL,sexy char(20) NOT NULL,age int(30) NOT NULL,address char(90) NOT NULL,qq int(60) NOT NULL, PRIMARY KEY (id))ENGINE=MyISAM AUTO_INCREMENT=58 DEFAULT CHARSET=utf8"
@@ -30,6 +31,7 @@ try:
     cur.execute(c_table)
 except Exception as e:
     print e
+
 data_title = ['id','name','sexy','age','address','qq'] 
 table = pylsytable(data_title)
 id_list = []
@@ -38,6 +40,7 @@ sexy_list = []
 age_list = []
 addr_list = []
 qq_list = []
+
         
 def add_table():
     table.add_data('id', id_list)
@@ -47,6 +50,8 @@ def add_table():
     table.add_data('address', addr_list)
     table.add_data('qq', qq_list)
     print table
+
+
 def clear_list():
     del id_list[:]
     del name_list[:]
@@ -54,6 +59,8 @@ def clear_list():
     del age_list[:]
     del addr_list[:]
     del qq_list[:]
+
+
 def add_data():
     try:
         name = str(raw_input('姓名: '))
@@ -75,11 +82,10 @@ def add_data():
         age_list.append(age)
         addr_list.append(addr)
         qq_list.append(qq)
-    
     add_table()
     
+
 def read_data():
-    
     stu_id = raw_input('请输入学员编号(数字)：')
     if stu_id == 'all':
         read_all()
@@ -93,20 +99,17 @@ def read_data():
         addr_list.append(data[4])
         qq_list .append(data[5])
     add_table() 
+
+
 def del_data():
-    
     stu_id = raw_input('请输入学员编号(数字)：')
     if stu_id == 'all':
-        cur.execute("delete from user_info")
-        
+        cur.execute("delete from user_info") 
     cur.execute("select * from user_info where id = '%s' "  %  stu_id)
-    
     yesno = raw_input('确认是否删除？确认请输入：y，不删除请输入：n  :')
     if yesno == 'y':
         cur.execute("delete from user_info where id =  '%s' "  %  stu_id)
         print '编号为%s的学生已经删除成功~' % stu_id
-        
-    
     clear_list()
     cur.execute("select * from user_info ")
     data_info =cur.fetchall()
@@ -118,6 +121,8 @@ def del_data():
         addr_list.append(data[4])
         qq_list .append(data[5])
     add_table() 
+
+
 def update_data():
     stu_id = raw_input('请输入学员编号(数字)：')
     cur.execute("select * from user_info where id =  '%s' "  %  stu_id)
@@ -149,6 +154,8 @@ def update_data():
         addr_list.append(u[4])
         qq_list .append(u[5])
     add_table()
+
+
 def  read_all():
     cur.execute("select * from user_info  order by id")
     data_info =cur.fetchall()
