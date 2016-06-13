@@ -110,7 +110,7 @@ def del_data():
     if stu_id == 'all':
         cur.execute("delete from user_info") 
     cur.execute("select * from user_info where id = '%s' "  %  stu_id)
-    yesno = raw_input('确认是否删除？确认请输入：y，不删除请输入：n  :')
+    yesno = raw_input('确认是否删除？确认请输入y，不删除请输入n:')
     if yesno == 'y':
         cur.execute("delete from user_info where id =  '%s' "  %  stu_id)
         print '编号为%s的学生已经删除成功~' % stu_id
